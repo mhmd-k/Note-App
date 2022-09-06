@@ -1,0 +1,292 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #3f51b599;
+  font-family: sans-serif;
+  position: relative;
+}
+* {
+  box-sizing: border-box;
+}
+.full {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: rgb(0 0 0 / 44%);
+  display: none;
+}
+.full.clicked {
+  display: block;
+}
+.full .input {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  gap: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+.full .input .close {
+  position: relative;
+  padding: 3px;
+  width: 10px;
+  height: 10px;
+  right: -97%;
+  top: -3px;
+  cursor: pointer;
+}
+.full .input .close::before {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 20px;
+  background-color: #607d8b;
+  right: 4px;
+  top: -5px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+.full .input .close::after {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 20px;
+  background-color: #607d8b;
+  right: 4px;
+  top: -5px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+}
+.full .input input[name="title"] {
+  outline: 0;
+  font-size: 20px;
+  background-color: #cbcaca7a;
+  border: 0;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  padding: 10px;
+}
+.full .input textarea[name="description"] {
+  width: 100%;
+  resize: none;
+  outline: 0;
+  font-size: 15px;
+  background-color: #cbcaca7a;
+  border: 0;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  padding: 10px;
+  min-height: 200px;
+}
+.full .input button {
+  cursor: pointer;
+  color: white;
+  background-color: #3f51b599;
+  border: 0;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.full .input button:hover {
+  background-color: #222b5c99;
+}
+.container {
+  padding: 10px 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.container .add-note {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  color: #00bcd4;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  gap: 10px;
+  height: 200px;
+}
+.container .add-note .add {
+  font-size: 40px;
+  font-weight: lighter;
+  padding: 10px;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  border: #00bcd4 3px dashed;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.3s;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  background-color: white;
+}
+.container .add-note .add:hover {
+  background-color: #d5cece1c;
+  animation: add-note-animation 3s infinite forwards linear;
+  -webkit-animation: add-note-animation 3s infinite forwards linear;
+}
+@keyframes add-note-animation {
+  from {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+}
+.container .add-note .add::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 25px;
+  background-color: #00bcd4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+.container .add-note .add::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 3px;
+  background-color: #00bcd4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transition: var(0.3s);
+  -webkit-transition: 0.3s;
+  -moz-transition: var(0.3s);
+  -ms-transition: var(0.3s);
+  -o-transition: var(0.3s);
+}
+.container .add-note p {
+  margin: 0;
+}
+.container .note {
+  background-color: white;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #535151;
+}
+.container .note h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-transform: capitalize;
+}
+.container .note p {
+  font-size: 15px;
+  font-weight: 100;
+  min-height: 45px;
+  margin: 15px 0;
+  flex: 1;
+  line-break: anywhere;
+  overflow: auto;
+}
+hr {
+  background-color: black;
+  border: 0;
+  height: 1px;
+  margin: 0;
+}
+.container .note .note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.container .note .note-footer .date {
+  font-size: 14px;
+  letter-spacing: 0.7px;
+}
+.container .note .note-footer button#delete {
+  cursor: pointer;
+  font-size: 15px;
+  border: 0;
+  margin-top: 5px;
+  border-radius: 3px;
+  color: white;
+  padding: 5px 10px;
+  background-color: #e91e63;
+}
