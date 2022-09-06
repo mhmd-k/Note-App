@@ -280,6 +280,19 @@ hr {
   height: 1px;
   margin: 0;
 }
+textarea::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  textarea::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  textarea::-webkit-scrollbar-thumb {
+    background-color: #5f5858;
+    border-radius: 30px;
+    border: 1px solid #ffffff;
+  }
 .container .note .note-footer {
   display: flex;
   justify-content: space-between;
