@@ -15,40 +15,93 @@ function creatNote(noteTitle, noteDescription, noteDate) {
     if (notes.length === 0) {
       let box = document.createElement("div");
       box.classList.add("note");
-      let title = document.createElement("h3");
-      title.innerText = noteTitle;
-      let para = document.createElement("p");
-      para.innerText = noteDescription;
+      let title = document.createElement("input");
+      title.setAttribute("readonly", true);
+      title.setAttribute("value", noteTitle);
+      let para = document.createElement("textarea");
+      para.setAttribute("readonly", true);
+      para.value = noteDescription;
       let hr = document.createElement("hr");
       let footer = document.createElement("div");
       footer.classList.add("note-footer");
       let date = document.createElement("div");
       date.classList.add("date");
       date.innerText = noteDate;
+      let edit = document.createElement("button");
+      edit.innerText = "Edit";
+      edit.id = "edit";
       let del = document.createElement("button");
       del.innerText = "Delete";
       del.id = "delete";
-      footer.append(date, del);
+      footer.append(date, edit, del);
       box.append(title, para, hr, footer);
       document.querySelector(".container").append(box);
       document.querySelector(".full").classList.remove("clicked");
       saveData(noteTitle, noteDescription, noteDate);
       document.querySelector(".full .input input").value = "";
       document.querySelector(".full .input textarea").value = "";
+      // delete button
       del.addEventListener("click", () => {
         storageArr.forEach((e) => {
           if (
             e.title.toLowerCase().split(" ").join("") ===
-            title.innerText.toString().toLowerCase().split(" ").join("")
+            title.value.toString().toLowerCase().split(" ").join("")
           ) {
             e.completed = true;
             box.remove();
-            console.log(storageArr);
             localStorage.setItem("notes", JSON.stringify(storageArr));
           }
         });
       });
+      // edit button
+      edit.addEventListener("click", () => {
+        editNote(edit, title, para);
+      });
     }
+  }
+}
+// edit btn functino
+function editNote(editbtn, title, para) {
+  editButtons = document.querySelectorAll("#edit");
+  if (editbtn.innerText === "Edit") {
+    editbtn.innerText = "Done";
+    title.focus();
+    editButtons.forEach((eb) => {
+      if (eb !== editbtn) eb.style.setProperty("pointer-events", "none");
+    });
+    Array.from(storageArr).forEach((e) => {
+      if (
+        e.title.toLowerCase().split(" ").join("") ===
+          title.value.toString().toLowerCase().split(" ").join("") &&
+        e.description.toLowerCase().split(" ").join("") ===
+          para.value.toString().toLowerCase().split(" ").join("")
+      ) {
+        e.completed = true;
+        title.removeAttribute("readonly");
+        para.removeAttribute("readonly");
+      }
+    });
+  } else {
+    editbtn.innerText = "Edit";
+    editButtons.forEach((eb) => {
+      eb.style.setProperty("pointer-events", "visible");
+    });
+    title.setAttribute("readonly", true);
+    para.setAttribute("readonly", true);
+    let d = new Date();
+    let hour = d.getHours();
+    let minut = d.getMinutes();
+    if (parseInt(hour) < 10) {
+      hour = `0${hour}`;
+    }
+    if (parseInt(minut) < 10) {
+      minut = `0${minut}`;
+    }
+    saveData(
+      title.value,
+      para.value,
+      `${d.getMonth()}/${d.getDay()}/${d.getFullYear()} at ${hour}:${minut}`
+    );
   }
 }
 // save data to localstorage function
@@ -71,10 +124,18 @@ addLogo.addEventListener("click", () => {
 
 addNotBtn.addEventListener("click", () => {
   let d = new Date();
+  let hour = d.getHours();
+  let minut = d.getMinutes();
+  if (parseInt(hour) < 10) {
+    hour = `0${hour}`;
+  }
+  if (parseInt(minut) < 10) {
+    minut = `0${minut}`;
+  }
   creatNote(
     document.querySelector(".full .input input").value,
     document.querySelector(".full .input textarea").value,
-    `${d.getMonth()}/${d.getDay()}/${d.getFullYear()} at ${d.getHours()}:${d.getMinutes()}`
+    `${d.getMonth()}/${d.getDay()}/${d.getFullYear()} at ${hour}:${minut}`
   );
 });
 
@@ -90,3 +151,5 @@ if (window.localStorage.getItem("notes") !== "") {
     }
   }
 }
+
+console.log(JSON.parse(localStorage.getItem("notes")));
