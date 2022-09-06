@@ -250,20 +250,29 @@ body {
   justify-content: space-between;
   color: #535151;
 }
-.container .note h3 {
+.container .note input {
   font-size: 18px;
   font-weight: 600;
   margin: 0;
   text-transform: capitalize;
+  border: 0;
 }
-.container .note p {
+.container .note input:focus {
+  outline: 0;
+}
+.container .note textarea {
   font-size: 15px;
   font-weight: 100;
   min-height: 45px;
   margin: 15px 0;
   flex: 1;
   line-break: anywhere;
+  resize: none;
   overflow: auto;
+  border: 0;
+}
+.container .note textarea:focus {
+  outline: 0;
 }
 hr {
   background-color: black;
@@ -275,18 +284,26 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  gap: 10px;
+  padding-top: 5px;
 }
 .container .note .note-footer .date {
   font-size: 14px;
   letter-spacing: 0.7px;
 }
-.container .note .note-footer button#delete {
+.container .note .note-footer button {
   cursor: pointer;
   font-size: 15px;
   border: 0;
   margin-top: 5px;
   border-radius: 3px;
   color: white;
+  width: 65px;
   padding: 5px 10px;
+}
+.container .note .note-footer button#delete {
   background-color: #e91e63;
+}
+.container .note .note-footer button#edit {
+  background-color: #00bcd4;
 }
