@@ -2,6 +2,17 @@ const addLogo = document.querySelector(".add");
 const container = document.querySelector(".container");
 const addNotBtn = document.querySelector(".full .input button");
 let storageArr = [];
+let colors = [
+  "#f44336",
+  "#e91e63",
+  "#673ab7",
+  "#2196f3",
+  "#8bc34a",
+  "#ffc107",
+  "#ffeb3b",
+  "#607d8b",
+  "#8bc34a",
+];
 // creat new note function
 function creatNote(noteTitle, noteDescription, noteDate) {
   if (noteTitle === "") {
@@ -15,6 +26,9 @@ function creatNote(noteTitle, noteDescription, noteDate) {
     if (notes.length === 0) {
       let box = document.createElement("div");
       box.classList.add("note");
+      let random = Math.floor(Math.random() * colors.length);
+      box.style.setProperty("background-color", `${colors[random]}`);
+      box.style.setProperty("border-bottom-color", `${colors[random]}`);
       let title = document.createElement("input");
       title.setAttribute("readonly", true);
       title.setAttribute("value", noteTitle);
@@ -27,19 +41,35 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       let date = document.createElement("div");
       date.classList.add("date");
       date.innerText = noteDate;
+      let optoins = document.createElement("div");
+      optoins.classList.add("options");
+      optoins.innerText = "...";
       let edit = document.createElement("button");
-      edit.innerText = "Edit";
+      edit.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> Edit';
+      edit.style.setProperty("background-color", `${colors[random]}`);
       edit.id = "edit";
       let del = document.createElement("button");
-      del.innerText = "Delete";
+      del.innerHTML = '<i class="fa-sharp fa-solid fa-trash"></i> Delete';
+      del.style.setProperty("background-color", `${colors[random]}`);
       del.id = "delete";
-      footer.append(date, edit, del);
+      optoins.append(edit, del);
+      footer.append(date, optoins);
       box.append(title, para, hr, footer);
       document.querySelector(".container").append(box);
       document.querySelector(".full").classList.remove("clicked");
       saveData(noteTitle, noteDescription, noteDate);
       document.querySelector(".full .input input").value = "";
       document.querySelector(".full .input textarea").value = "";
+      // options click
+      optoins.addEventListener("click", (e) => {
+        e.stopPropagation();
+        del.classList.toggle("visible");
+        edit.classList.toggle("visible");
+      });
+      document.addEventListener("click", () => {
+        del.classList.remove("visible");
+        edit.classList.remove("visible");
+      });
       // delete button
       del.addEventListener("click", () => {
         storageArr.forEach((e) => {
@@ -151,5 +181,3 @@ if (window.localStorage.getItem("notes") !== "") {
     }
   }
 }
-
-console.log(JSON.parse(localStorage.getItem("notes")));
