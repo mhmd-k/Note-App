@@ -11,7 +11,8 @@ let colors = [
   "#ffc107",
   "#ffeb3b",
   "#607d8b",
-  "#8bc34a",
+  "#ff5722",
+  "#4caf50",
 ];
 // creat new note function
 function creatNote(noteTitle, noteDescription, noteDate) {
@@ -28,7 +29,6 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       box.classList.add("note");
       let random = Math.floor(Math.random() * colors.length);
       box.style.setProperty("background-color", `${colors[random]}`);
-      box.style.setProperty("border-bottom-color", `${colors[random]}`);
       let title = document.createElement("input");
       title.setAttribute("readonly", true);
       title.setAttribute("value", noteTitle);
