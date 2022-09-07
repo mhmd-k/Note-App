@@ -75,7 +75,8 @@ function creatNote(noteTitle, noteDescription, noteDate) {
         completed: false,
       };
       noteId++;
-      saveData(obj);
+      storageArr.push(obj);
+      localStorage.setItem("notes", JSON.stringify(storageArr));
       // end of push to localstorage
       box.setAttribute("data-id", `${obj.id}`);
       document.querySelector(".full .input input").value = "";
@@ -138,15 +139,10 @@ function editNote(editbtn, title, para, eleId) {
       if (e.id === eleId) {
         e.title = title.value;
         e.description = para.value;
-        console.log(storageArr);
+        localStorage.setItem("notes", JSON.stringify(storageArr));
       }
     });
   }
-}
-// save data to localstorage function
-function saveData(obj) {
-  storageArr.push(obj);
-  localStorage.setItem("notes", JSON.stringify(storageArr));
 }
 
 addLogo.addEventListener("click", () => {
