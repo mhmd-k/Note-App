@@ -114,6 +114,7 @@ function editNote(editbtn, title, para, eleId) {
   if (editbtn.innerText === "Edit") {
     editbtn.innerText = "Done";
     title.focus();
+    title.parentElement.style.setProperty("border", "1px solid white");
     editButtons.forEach((eb) => {
       if (eb !== editbtn) eb.style.setProperty("pointer-events", "none");
     });
@@ -121,6 +122,7 @@ function editNote(editbtn, title, para, eleId) {
     para.removeAttribute("readonly");
   } else {
     editbtn.innerText = "Edit";
+    title.parentElement.style.setProperty("border", "0");
     editButtons.forEach((eb) => {
       eb.style.setProperty("pointer-events", "visible");
     });
