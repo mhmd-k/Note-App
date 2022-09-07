@@ -227,11 +227,11 @@ body {
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  transition: var(0.3s);
+  transition: 0.3s;
   -webkit-transition: 0.3s;
-  -moz-transition: var(0.3s);
-  -ms-transition: var(0.3s);
-  -o-transition: var(0.3s);
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
 }
 .container .add-note p {
   margin: 0;
@@ -248,7 +248,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #535151;
+  color: white;
+  border-bottom-color: white;
 }
 .container .note input {
   font-size: 18px;
@@ -256,6 +257,8 @@ body {
   margin: 0;
   text-transform: capitalize;
   border: 0;
+  background-color: inherit;
+  color: inherit;
 }
 .container .note input:focus {
   outline: 0;
@@ -270,29 +273,31 @@ body {
   resize: none;
   overflow: auto;
   border: 0;
+  background-color: inherit;
+  color: inherit;
 }
 .container .note textarea:focus {
   outline: 0;
 }
 hr {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   border: 0;
   height: 1px;
   margin: 0;
 }
 textarea::-webkit-scrollbar {
-    width: 10px;
-  }
+  width: 10px;
+}
 
-  textarea::-webkit-scrollbar-track {
-    background: #ffffff;
-  }
+textarea::-webkit-scrollbar-track {
+  background: #ffffff;
+}
 
-  textarea::-webkit-scrollbar-thumb {
-    background-color: #5f5858;
-    border-radius: 30px;
-    border: 1px solid #ffffff;
-  }
+textarea::-webkit-scrollbar-thumb {
+  background-color: #5f5858;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+}
 .container .note .note-footer {
   display: flex;
   justify-content: space-between;
@@ -304,19 +309,53 @@ textarea::-webkit-scrollbar {
   font-size: 14px;
   letter-spacing: 0.7px;
 }
+.container .note .note-footer .options {
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 5px;
+}
 .container .note .note-footer button {
   cursor: pointer;
+  width: 85px;
   font-size: 15px;
-  border: 0;
   margin-top: 5px;
-  border-radius: 3px;
   color: white;
-  width: 65px;
+  justify-content: space-between;
   padding: 5px 10px;
+  background-color: inherit;
+  position: absolute;
+  display: none;
+  flex-direction: row;
+  right: -20px;
+  border: 1px solid white;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  border-bottom-color: inherit;
+}
+.container .note .note-footer button:hover {
+  opacity: 0.8;
+}
+.container .note .note-footer button#delete::after {
+  position: absolute;
+  content: "";
+  border: 10px solid transparent;
+  border-bottom-color: inherit;
+  right: 15px;
+  top: -20px;
+  pointer-events: none;
+}
+.container .note .note-footer button.visible {
+  display: flex;
 }
 .container .note .note-footer button#delete {
-  background-color: #e91e63;
+  top: 35px;
 }
 .container .note .note-footer button#edit {
-  background-color: #00bcd4;
+  top: 64px;
+  justify-content: space-around;
 }
