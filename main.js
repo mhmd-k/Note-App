@@ -1,6 +1,10 @@
 const addLogo = document.querySelector(".add");
 const container = document.querySelector(".container");
 const addNotBtn = document.querySelector(".full .input button");
+const titleInput = document.querySelector('.full .input input[name="title"]');
+const descreptionArea = document.querySelector(
+  '.full .input textarea[name="description"]'
+);
 let storageArr = [];
 let colors = [
   "#f44336",
@@ -14,11 +18,16 @@ let colors = [
   "#ff5722",
   "#4caf50",
 ];
+let noteId = 1;
 // creat new note function
 function creatNote(noteTitle, noteDescription, noteDate) {
   if (noteTitle === "") {
+    titleInput.style.setProperty("border", `red 1px solid`);
+    titleInput.focus();
     return;
   } else if (noteDescription === "") {
+    descreptionArea.style.setProperty("border", `red 1px solid`);
+    descreptionArea.focus();
     return;
   } else {
     let notes = Array.from(
@@ -29,9 +38,9 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       box.classList.add("note");
       let random = Math.floor(Math.random() * colors.length);
       box.style.setProperty("background-color", `${colors[random]}`);
-      let title = document.createElement("input");
-      title.setAttribute("readonly", true);
-      title.setAttribute("value", noteTitle);
+      let tinput = document.createElement("input");
+      tinput.setAttribute("readonly", true);
+      tinput.setAttribute("value", noteTitle);
       let para = document.createElement("textarea");
       para.setAttribute("readonly", true);
       para.value = noteDescription;
@@ -54,10 +63,21 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       del.id = "delete";
       optoins.append(edit, del);
       footer.append(date, optoins);
-      box.append(title, para, hr, footer);
+      box.append(tinput, para, hr, footer);
       document.querySelector(".container").append(box);
       document.querySelector(".full").classList.remove("clicked");
-      saveData(noteTitle, noteDescription, noteDate);
+      // push to localstorage
+      let obj = {
+        id: noteId,
+        title: noteTitle,
+        description: noteDescription,
+        date: noteDate,
+        completed: false,
+      };
+      noteId++;
+      saveData(obj);
+      // end of push to localstorage
+      box.setAttribute("data-id", `${obj.id}`);
       document.querySelector(".full .input input").value = "";
       document.querySelector(".full .input textarea").value = "";
       // options click
@@ -73,10 +93,7 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       // delete button
       del.addEventListener("click", () => {
         storageArr.forEach((e) => {
-          if (
-            e.title.toLowerCase().split(" ").join("") ===
-            title.value.toString().toLowerCase().split(" ").join("")
-          ) {
+          if (e.id === parseInt(box.getAttribute("data-id"))) {
             e.completed = true;
             box.remove();
             localStorage.setItem("notes", JSON.stringify(storageArr));
@@ -85,13 +102,13 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       });
       // edit button
       edit.addEventListener("click", () => {
-        editNote(edit, title, para);
+        editNote(edit, tinput, para, parseInt(box.getAttribute("data-id")));
       });
     }
   }
 }
 // edit btn functino
-function editNote(editbtn, title, para) {
+function editNote(editbtn, title, para, eleId) {
   editButtons = document.querySelectorAll("#edit");
   if (editbtn.innerText === "Edit") {
     editbtn.innerText = "Done";
@@ -99,18 +116,8 @@ function editNote(editbtn, title, para) {
     editButtons.forEach((eb) => {
       if (eb !== editbtn) eb.style.setProperty("pointer-events", "none");
     });
-    Array.from(storageArr).forEach((e) => {
-      if (
-        e.title.toLowerCase().split(" ").join("") ===
-          title.value.toString().toLowerCase().split(" ").join("") &&
-        e.description.toLowerCase().split(" ").join("") ===
-          para.value.toString().toLowerCase().split(" ").join("")
-      ) {
-        e.completed = true;
-        title.removeAttribute("readonly");
-        para.removeAttribute("readonly");
-      }
-    });
+    title.removeAttribute("readonly");
+    para.removeAttribute("readonly");
   } else {
     editbtn.innerText = "Edit";
     editButtons.forEach((eb) => {
@@ -127,22 +134,17 @@ function editNote(editbtn, title, para) {
     if (parseInt(minut) < 10) {
       minut = `0${minut}`;
     }
-    saveData(
-      title.value,
-      para.value,
-      `${d.getMonth()}/${d.getDay()}/${d.getFullYear()} at ${hour}:${minut}`
-    );
+    Array.from(storageArr).forEach((e) => {
+      if (e.id === eleId) {
+        e.title = title.value;
+        e.description = para.value;
+        console.log(storageArr);
+      }
+    });
   }
 }
 // save data to localstorage function
-function saveData(t, d, da) {
-  let obj = {
-    id: new Date().getTime(),
-    title: t,
-    description: d,
-    date: da,
-    completed: false,
-  };
+function saveData(obj) {
   storageArr.push(obj);
   localStorage.setItem("notes", JSON.stringify(storageArr));
 }
@@ -163,10 +165,17 @@ addNotBtn.addEventListener("click", () => {
     minut = `0${minut}`;
   }
   creatNote(
-    document.querySelector(".full .input input").value,
-    document.querySelector(".full .input textarea").value,
+    titleInput.value,
+    descreptionArea.value,
     `${d.getMonth()}/${d.getDay()}/${d.getFullYear()} at ${hour}:${minut}`
   );
+});
+
+titleInput.addEventListener("input", () => {
+  titleInput.style.setProperty("border", "none");
+});
+descreptionArea.addEventListener("input", () => {
+  descreptionArea.style.setProperty("border", "none");
 });
 
 document.querySelector("span.close").addEventListener("click", () => {
