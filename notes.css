@@ -269,6 +269,7 @@ html {
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
+  line-break: auto;
 }
 .container .note input:focus {
   outline: 0;
@@ -279,7 +280,7 @@ html {
   min-height: 45px;
   margin: 15px 0;
   flex: 1;
-  line-break: anywhere;
+  line-break: auto;
   resize: none;
   overflow: auto;
   border: 0;
