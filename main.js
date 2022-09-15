@@ -13,7 +13,7 @@ let colors = [
   "#2196f3",
   "#8bc34a",
   "#ffc107",
-  "#ffeb3b",
+  "#cbbb2c",
   "#607d8b",
   "#ff5722",
   "#4caf50",
