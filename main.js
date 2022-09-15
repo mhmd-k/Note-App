@@ -165,7 +165,7 @@ addNotBtn.addEventListener("click", () => {
   creatNote(
     titleInput.value,
     descreptionArea.value,
-    `${d.getMonth()}/${d.getDay()}/${d.getFullYear()} at ${hour}:${minut}`
+    `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} at ${hour}:${minut}`
   );
 });
 
