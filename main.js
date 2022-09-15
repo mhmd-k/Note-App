@@ -11,12 +11,13 @@ let colors = [
   "#e91e63",
   "#673ab7",
   "#2196f3",
-  "#8bc34a",
   "#ffc107",
-  "#cbbb2c",
+  "#ffeb3b",
   "#607d8b",
   "#ff5722",
   "#4caf50",
+  "#1c1f20",
+  "#009688",
 ];
 let noteId = 1;
 // creat new note function
@@ -37,6 +38,7 @@ function creatNote(noteTitle, noteDescription, noteDate) {
       let box = document.createElement("div");
       box.classList.add("note");
       let random = Math.floor(Math.random() * colors.length);
+      console.log(random);
       box.style.setProperty("background-color", `${colors[random]}`);
       let tinput = document.createElement("input");
       tinput.setAttribute("readonly", true);
@@ -118,6 +120,7 @@ function editNote(editbtn, title, para, eleId) {
     editButtons.forEach((eb) => {
       if (eb !== editbtn) eb.style.setProperty("pointer-events", "none");
     });
+    addLogo.style.setProperty("pointer-events", "none");
     title.removeAttribute("readonly");
     para.removeAttribute("readonly");
   } else {
@@ -126,6 +129,7 @@ function editNote(editbtn, title, para, eleId) {
     editButtons.forEach((eb) => {
       eb.style.setProperty("pointer-events", "visible");
     });
+    addLogo.style.setProperty("pointer-events", "visible");
     title.setAttribute("readonly", true);
     para.setAttribute("readonly", true);
     let d = new Date();
