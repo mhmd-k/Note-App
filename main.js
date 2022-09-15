@@ -112,7 +112,7 @@ function creatNote(noteTitle, noteDescription, noteDate) {
 function editNote(editbtn, title, para, eleId) {
   editButtons = document.querySelectorAll("#edit");
   if (editbtn.innerText === "Edit") {
-    editbtn.innerText = "Done";
+    editbtn.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> Done';
     title.focus();
     title.parentElement.style.setProperty("border", "1px solid white");
     editButtons.forEach((eb) => {
@@ -121,7 +121,7 @@ function editNote(editbtn, title, para, eleId) {
     title.removeAttribute("readonly");
     para.removeAttribute("readonly");
   } else {
-    editbtn.innerText = "Edit";
+    editbtn.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> Edit';
     title.parentElement.style.setProperty("border", "0");
     editButtons.forEach((eb) => {
       eb.style.setProperty("pointer-events", "visible");
