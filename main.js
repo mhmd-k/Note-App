@@ -7,15 +7,12 @@ const descreptionArea = document.querySelector(
 );
 let storageArr = [];
 let colors = [
-  "#f44336",
   "#e91e63",
   "#673ab7",
   "#2196f3",
   "#ffc107",
-  "#ffeb3b",
   "#607d8b",
   "#ff5722",
-  "#4caf50",
   "#1c1f20",
   "#009688",
 ];
